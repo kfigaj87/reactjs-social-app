@@ -1,13 +1,14 @@
 import React from "react";
 import "./App.css";
-import AppRoutes from "./routes/Approutes";
+import AppRoutes from "./routes/ApprRoutes";
 import Nav from "./components/Nav";
+import Post from "./components/Post";
 
 function App() {
   return (
     <div className="App">
-      <AppRoutes />
       <Nav />
+      <AppRoutes />
     </div>
   );
 }
