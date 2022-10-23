@@ -1,7 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useReducer } from "react";
 import axios, { Axios } from "axios";
 import Post from "../components/Post";
 import { useState } from "react";
+import "./Home.css";
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
@@ -22,10 +23,10 @@ const Home = () => {
 
   return (
     <div className="home">
-      <h2>Home</h2>
+      <h2 className="nav-h">Home</h2>
       <div className="postList">
         {posts.map((post) => {
-          return <Post post={post} />;
+          return <Post post={post} key={post.id} />;
         })}
       </div>
     </div>

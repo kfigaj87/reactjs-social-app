@@ -1,11 +1,12 @@
 import React from "react";
+import "./Signup.css";
 
-const Singup = () => {
+const Signup = () => {
   return (
-    <div className="singup">
-      <h2>SingUp</h2>
+    <div className="signup">
+      <h2 className="nav-h">SignUp</h2>
     </div>
   );
 };
 
-export default Singup;
+export default Signup;

@@ -1,0 +1,15 @@
+.nav-menu {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.nav-list {
+  color: black;
+
+  font-weight: bold;
+}
+
+.nav-list:hover {
+  cursor: pointer;
+  color: red;
+}

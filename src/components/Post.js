@@ -2,15 +2,17 @@ import React from "react";
 import "./Post.css";
 
 const Post = (props) => {
+  console.log(props.post);
   return (
     <div className="post">
-      <p>
-        <img className="avatar" src={props.post} />
-      </p>
+      <div className="avatar_img">
+        <img className="avatar" src={props.post.user.avatar_url} alt="avatar" />
+        <span className="created_at">{props.post.created_at.slice(0, 10)}</span>
+      </div>
+
+      <p className="content">{props.post.content}</p>
     </div>
   );
 };
-
-console.log("działa");
 
 export default Post;

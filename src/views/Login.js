@@ -1,9 +1,10 @@
 import React from "react";
+import "./Login.css";
 
 const Login = () => {
   return (
     <div className="login">
-      <h2>Login</h2>
+      <h2 className="nav-h">Login</h2>
     </div>
   );
 };
