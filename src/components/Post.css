@@ -16,6 +16,7 @@
   width: 10%;
   border: 2px solid black;
   border-radius: 100%;
+  margin-left: 0;
 }
 
 .avatar_img {
@@ -31,4 +32,8 @@
   margin-left: 5px;
   margin-top: 5px;
   margin-bottom: 10px;
+}
+
+.user-name {
+  text-transform: uppercase;
 }

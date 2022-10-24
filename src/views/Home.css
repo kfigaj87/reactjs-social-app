@@ -9,3 +9,15 @@
   text-decoration: underline;
   color: rgb(222, 219, 29);
 }
+
+.button {
+  margin-bottom: 10px;
+  background-color: rgb(101, 97, 97);
+  color: rgb(225, 225, 225);
+  border: 1px solid white;
+}
+
+.button:hover {
+  cursor: pointer;
+  opacity: 50%;
+}
