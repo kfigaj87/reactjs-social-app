@@ -1,7 +1,7 @@
-import React, { useEffect, useReducer } from "react";
+import React, { useState, useEffect, useReducer } from "react";
 import axios, { Axios } from "axios";
 import Post from "../components/Post";
-import { useState } from "react";
+
 import "./Home.css";
 
 const Home = () => {
