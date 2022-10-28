@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useState } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./Nav.css";
 import axios from "axios";
 
@@ -9,8 +9,14 @@ const Nav = (props) => {
       .post("http://akademia108.pl/api/social-app/user/logout")
       .then((res) => {
         const logoutRes = res.data;
-
-        props.setUser(logoutRes);
+        // console.log(logoutRes.message);
+        if (logoutRes.message) {
+          localStorage.setItem("user", null);
+          props.setUser(null);
+        }
+      })
+      .catch((error) => {
+        console.error(error);
       });
   };
 
@@ -22,23 +28,27 @@ const Nav = (props) => {
             Home
           </Link>
         </li>
-        <li>
-          <Link to="/login" className="nav-list">
-            Login
-          </Link>
-        </li>
-        <li>
-          <Link to="/signup" className="nav-list">
-            SignUp
-          </Link>
-        </li>
-        <li>
-          <div>
-            <Link to="/loggout" className="nav-list">
-              <button onClickCapture={handleLoggout}>Logout</button>
+        {props.user && (
+          <li>
+            <Link to="/" className="nav-list" onClick={handleLoggout}>
+              Logout
             </Link>
-          </div>
-        </li>
+          </li>
+        )}
+        {!props.user && (
+          <li>
+            <Link to="/login" className="nav-list">
+              Login
+            </Link>
+          </li>
+        )}
+        {!props.user && (
+          <li>
+            <Link to="/signup" className="nav-list">
+              SignUp
+            </Link>
+          </li>
+        )}
       </ul>
     </nav>
   );

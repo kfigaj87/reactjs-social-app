@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./App.css";
 import AppRoutes from "./routes/AppRoutes";
 import Nav from "./components/Nav";
-// import Post from "./components/Post";
+
 import axios from "axios";
 
 function App() {

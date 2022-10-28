@@ -1,11 +1,9 @@
 import React from "react";
 
-// import axios from "axios";
-
 import Home from "../views/Home";
 import Login from "../views/Login";
 import Signup from "../views/Signup";
-import Loggout from "../views/Signup";
+
 import { Routes, Route } from "react-router-dom";
 import "./AppRoutes.css";
 
@@ -20,10 +18,6 @@ const AppRoutes = (props) => {
       />
 
       <Route path="signup" element={<Signup />} />
-      <Route
-        path="loggout"
-        element={<Loggout user={props.user} setUser={props.setUser} />}
-      />
     </Routes>
   );
 };
