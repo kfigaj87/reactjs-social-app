@@ -1,6 +1,8 @@
-import React, { useState, useEffect, useReducer } from "react";
-import axios, { Axios } from "axios";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import Post from "../components/Post";
+import AddPost from "../components/AddPost";
+import { Link } from "react-router-dom";
 
 import "./Home.css";
 
@@ -29,6 +31,15 @@ const Home = () => {
         setPosts(posts.concat(postsNext));
       });
   };
+  const getPrevPosts = () => {
+    axios
+      .post("https://akademia108.pl/api/social-app/post/newer-then")
+      .then((res) => {
+        const postPrev = res.data;
+
+        // setPosts(postPrev);
+      });
+  };
 
   useEffect(() => {
     getLatestPosts();
@@ -37,6 +48,12 @@ const Home = () => {
   return (
     <div className="home">
       <h2 className="nav-h">Home</h2>
+      <div>
+        <Link to="/addpost" className="add-post">
+          Add Post
+        </Link>
+      </div>
+
       <div className="postList">
         {posts.map((post) => {
           return <Post post={post} key={post.id} />;
