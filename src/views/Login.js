@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Login.css";
 import axios from "axios";
+import { Navigate } from "react-router-dom";
 
 const Login = (props) => {
   const [formData, setFromData] = useState({
@@ -58,6 +59,7 @@ const Login = (props) => {
 
   return (
     <div className="login">
+      {props.user && <Navigate to="/" />}
       <h2 className="nav-h">Login</h2>
       <div className="form-log">
         <form onSubmit={handleSubmit}>

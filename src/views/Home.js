@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 import "./Home.css";
 
-const Home = () => {
+const Home = (props) => {
   const [posts, setPosts] = useState([]);
 
   const getLatestPosts = () => {
@@ -33,26 +33,27 @@ const Home = () => {
   };
   const getPrevPosts = () => {
     axios
-      .post("https://akademia108.pl/api/social-app/post/newer-then")
+      .post("https://akademia108.pl/api/social-app/post/newer-then", {
+        date: posts[0].created_at,
+      })
       .then((res) => {
-        const postPrev = res.data;
-
-        // setPosts(postPrev);
+        let reqData = res.data;
+        setPosts(reqData.concat(posts));
+      })
+      .catch((error) => {
+        console.error(error);
       });
   };
 
   useEffect(() => {
     getLatestPosts();
-  }, []);
+  }, [props.user]);
 
   return (
     <div className="home">
       <h2 className="nav-h">Home</h2>
-      <div>
-        <Link to="/addpost" className="add-post">
-          Add Post
-        </Link>
-      </div>
+
+      {props.user && <AddPost user={props.user} getPrevPosts={getPrevPosts} />}
 
       <div className="postList">
         {posts.map((post) => {
