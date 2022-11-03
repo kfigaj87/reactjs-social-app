@@ -2,26 +2,25 @@ import React, { useState } from "react";
 import axios from "axios";
 
 import "./Post.css";
-const Post = (props) => {
-  const [deleteModalDisplay, setdeleteModalDisplay] = useState();
 
-  const deletePost = (id, e) => {
-    if (window.confirm("Czy jesteś tego pewien?"));
-    e.preventDefault();
+const Post = (props) => {
+  const [deleteModalDisplay, setdeleteModalDisplay] = useState(false);
+
+  const deletePost = (id) => {
     axios
-      .delete(`https://akademia108.pl/api/social-app/post/delete${id}.json`, {
-        post: "",
-        user: "",
+      .post(`https://akademia108.pl/api/social-app/post/delete`, {
+        post_id: id,
       })
 
       .then((res) => {
         let resData = res.data;
-        setdeleteModalDisplay("");
-        console.log("deleted!", res.data).catch((error) => {
-          console.error(error);
+
+        props.setPosts((posts) => {
+          return posts.filter((post) => post.id !== resData.post_id);
         });
       });
   };
+
   // console.log(props.post);
   return (
     <div className="post">
@@ -32,11 +31,30 @@ const Post = (props) => {
       </div>
 
       <p className="content">{props.post.content}</p>
+
       <div>
-        <button className="post-delete" onClick={deletePost}>
+        <button
+          className="post-delete"
+          onClick={() => setdeleteModalDisplay(true)}
+        >
           Delete post
         </button>
       </div>
+
+      {deleteModalDisplay && (
+        <div className="deleteConfirmation">
+          <h3>Are you sure you want to delete post?</h3>
+          <button className="btn-yes" onClick={() => deletePost(props.post.id)}>
+            Yes
+          </button>{" "}
+          <button
+            className="btn-no"
+            onClick={() => setdeleteModalDisplay(false)}
+          >
+            No
+          </button>
+        </div>
+      )}
     </div>
   );
 };
