@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Post from "../components/Post";
 import AddPost from "../components/AddPost";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
 import "./Home.css";
 

@@ -26,19 +26,21 @@ const AddPost = (props) => {
         console.error(error);
       });
   };
+
   return (
     <div className="addpost">
       <form onSubmit={addPost}>
-        <input
+        <textarea
+          className="post-content"
           type="textarea"
           name="textarea"
           value={postContent}
-          placeholder="add..."
+          placeholder="..."
           onChange={(e) => {
             setPostContent(e.target.value);
           }}
-        ></input>
-        <button>Add Post</button>
+        ></textarea>
+        <button className="btn-addPost">Add Post</button>
       </form>
     </div>
   );
