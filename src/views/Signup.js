@@ -117,7 +117,7 @@ const Signup = (props) => {
       });
     }
     //repeatPassword
-    if (formData.repeatPassword.trim()) {
+    if (formData.repeatPassword.trim() !== formData.repeatPassword.trim()) {
       validatationErrors.repeatPassword = true;
       setErrors((prevErrors) => {
         return {
@@ -145,16 +145,44 @@ const Signup = (props) => {
         };
       });
     }
+    return (
+      !validatationErrors.username &&
+      !validatationErrors.email &&
+      !validatationErrors.password &&
+      !validatationErrors.repeatPassword
+    );
   };
-  console.log(formData.username);
-  console.log(formData.email);
-  console.log(formData.password);
-  console.log(formData.repeatPassword);
+
+  // console.log(formData.username);
+  // console.log(formData.email);
+  // console.log(formData.password);
+  // console.log(formData.repeatPassword);
 
   const handleSubmit = (e) => {
-    // axios.post("http://akademia108.pl/api/social-app/user/signup");
     e.preventDefault();
-    validate();
+    if (!validate()) {
+      return;
+    }
+    let newUser = {
+      username: formData.username,
+      email: formData.email,
+      password: formData.password,
+    };
+    axios
+      .post("http://akademia108.pl/api/social-app/user/signup", {
+        content: signUpMessage,
+      })
+      .then((req) => {
+        console.log(req.data);
+        let reqData = req.data;
+
+        console.log(reqData);
+
+        setSignUpMessage(newUser);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   return (
@@ -188,13 +216,13 @@ const Signup = (props) => {
           {/* <br></br> */}
           <input
             type="password"
-            name="password"
+            name="repeatPassword"
             placeholder="Repeat password"
             onChange={handleInputChange}
             value={formData.repeatPassword}
           ></input>
         </form>
-        <button className="btn-signup" onClick={setSignUpMessage}>
+        <button className="btn-signup" onClick={setSignUpDone}>
           Sign Up
         </button>
       </div>
