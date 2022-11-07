@@ -103,8 +103,18 @@ const Signup = (props) => {
       setErrors((prevErrors) => {
         return {
           ...prevErrors,
-          password:
-            "pole password musi zawierać co najmniej jedną cyfrę i co najmniej jeden z następujących znaków specjalnych: ! # @ $ % ",
+          password: "pole password nie może mieć białych znaków!",
+        };
+      });
+    } else if (
+      !/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]+/.test(formData.password.trim())
+    ) {
+      validatationErrors.repeatPassword = true;
+      setErrors((prevErrors) => {
+        return {
+          ...prevErrors,
+          repeatPassword:
+            "pole password musi zawierać co najmniej jedną cyfrę i co najmniej jeden z następujących znaków specjalnych: ! # @ $ %",
         };
       });
     } else {
@@ -122,18 +132,7 @@ const Signup = (props) => {
       setErrors((prevErrors) => {
         return {
           ...prevErrors,
-          repeatPassword: "pole repeatPassword nie może być puste",
-        };
-      });
-    } else if (
-      !/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]+/.test(formData.password.trim())
-    ) {
-      validatationErrors.repeatPassword = true;
-      setErrors((prevErrors) => {
-        return {
-          ...prevErrors,
-          repeatPassword:
-            "pole repeatPassword musi być identyczne jak do pole password",
+          repeatPassword: "hasło powinno być takie same",
         };
       });
     } else {
@@ -153,11 +152,6 @@ const Signup = (props) => {
     );
   };
 
-  // console.log(formData.username);
-  // console.log(formData.email);
-  // console.log(formData.password);
-  // console.log(formData.repeatPassword);
-
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!validate()) {
@@ -169,16 +163,28 @@ const Signup = (props) => {
       password: formData.password,
     };
     axios
-      .post("http://akademia108.pl/api/social-app/user/signup", {
-        content: signUpMessage,
-      })
+      .post(
+        "http://akademia108.pl/api/social-app/user/signup",
+        JSON.stringify(newUser)
+      )
       .then((req) => {
-        console.log(req.data);
         let reqData = req.data;
-
-        console.log(reqData);
-
-        setSignUpMessage(newUser);
+        if (reqData.signedup) {
+          setSignUpMessage("Account created");
+          setSignUpDone(true);
+          setFormData({
+            username: "",
+            email: "",
+            password: "",
+            repeatPassword: "",
+          });
+        } else {
+          if (reqData.message.username) {
+            setSignUpMessage(reqData.message.username[0]);
+          } else if (reqData.message.email) {
+            setSignUpMessage(reqData.message.email[0]);
+          }
+        }
       })
       .catch((error) => {
         console.error(error);
@@ -189,7 +195,8 @@ const Signup = (props) => {
     <div className="signup">
       <h2 className="nav-h">SignUp</h2>
       <div className="signup-form">
-        <form onSubmit={handleSubmit}>
+        <form className="signup-form-form" onSubmit={handleSubmit}>
+          {errors.username && <span>{errors.username}</span>}
           <input
             type="text"
             name="username"
@@ -198,6 +205,7 @@ const Signup = (props) => {
             value={formData.username}
           ></input>
           {/* <br></br> */}
+          {errors.email && <span>{errors.email}</span>}
           <input
             type="email"
             name="email"
@@ -206,6 +214,7 @@ const Signup = (props) => {
             value={formData.email}
           ></input>
           {/* <br></br> */}
+          {errors.password && <span>{errors.password}</span>}
           <input
             type="password"
             name="password"
@@ -214,6 +223,7 @@ const Signup = (props) => {
             value={formData.password}
           ></input>
           {/* <br></br> */}
+          {errors.repeatPassword && <span>{errors.repeatPassword}</span>}
           <input
             type="password"
             name="repeatPassword"
@@ -221,10 +231,8 @@ const Signup = (props) => {
             onChange={handleInputChange}
             value={formData.repeatPassword}
           ></input>
+          <button className="btn-signup">Sign Up</button>
         </form>
-        <button className="btn-signup" onClick={setSignUpDone}>
-          Sign Up
-        </button>
       </div>
     </div>
   );

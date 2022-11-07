@@ -37,3 +37,10 @@
 .user-name {
   text-transform: uppercase;
 }
+
+.post-delete {
+  display: flex;
+  justify-content: flex-start;
+  margin-left: 2px;
+  margin-bottom: 2px;
+}

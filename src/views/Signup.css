@@ -4,7 +4,13 @@
   height: auto;
   width: 50%;
   margin-left: 25%;
-  display: flex;
+  /* display: flex;
   flex-wrap: wrap;
+  justify-content: center; */
+}
+
+.signup-form-form {
+  display: flex;
   justify-content: center;
+  flex-wrap: wrap;
 }

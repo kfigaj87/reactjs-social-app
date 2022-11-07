@@ -5,6 +5,28 @@ import "./Post.css";
 
 const Post = (props) => {
   const [deleteModalDisplay, setdeleteModalDisplay] = useState(false);
+  const [likesCount, setLikesCount] = useState(props.post.likes.length);
+  const [doesUserLiked, setDoesUserLiked] = useState(
+    props.post.likes.filter((like) => like.username === props.user?.username)
+      .length !== 0
+  );
+  const likePost = (id, isLiked) => {
+    axios
+      .post(
+        "http://akademia108.pl/api/social-app/post/" +
+          (isLiked ? "dislike" : "like"),
+        {
+          post_id: id,
+        }
+      )
+      .then((res) => {
+        let resData = res.data;
+        setLikesCount();
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
 
   const deletePost = (id) => {
     axios
@@ -29,17 +51,17 @@ const Post = (props) => {
         <p className="user-name">{props.post.user.username}</p>
         <span className="created_at">{props.post.created_at.slice(0, 10)}</span>
       </div>
-
       <p className="content">{props.post.content}</p>
-
-      <div>
-        <button
-          className="post-delete"
-          onClick={() => setdeleteModalDisplay(true)}
-        >
-          Delete post
-        </button>
-      </div>
+      {props.user && (
+        <div className="post-delete">
+          <button
+            className="btn-post-delete"
+            onClick={() => setdeleteModalDisplay(true)}
+          >
+            Delete post
+          </button>
+        </div>
+      )}
 
       {deleteModalDisplay && (
         <div className="deleteConfirmation">
@@ -55,6 +77,10 @@ const Post = (props) => {
           </button>
         </div>
       )}
+      <button className="btn-like/dislike" onClick={""}>
+        {" "}
+        {doesUserLiked ? "dislike" : "like"}
+      </button>
     </div>
   );
 };
