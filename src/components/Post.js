@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 import axios from "axios";
 
 import "./Post.css";
@@ -19,9 +20,9 @@ const Post = (props) => {
           post_id: id,
         }
       )
-      .then((res) => {
-        let resData = res.data;
-        setLikesCount();
+      .then(() => {
+        setLikesCount(likesCount + (isLiked ? -1 : 1));
+        setDoesUserLiked(!isLiked);
       })
       .catch((error) => {
         console.error(error);
@@ -43,7 +44,7 @@ const Post = (props) => {
       });
   };
 
-  // console.log(props.post);
+  // console.log(props.post.likes);
   return (
     <div className="post">
       <div className="avatar_img">
@@ -77,10 +78,19 @@ const Post = (props) => {
           </button>
         </div>
       )}
-      <button className="btn-like/dislike" onClick={""}>
-        {" "}
-        {doesUserLiked ? "dislike" : "like"}
-      </button>
+      <div className="">
+        <button
+          className="btnLikeDislike"
+          onClick={() => likePost(props.post.id, doesUserLiked)}
+        >
+          {" "}
+          {doesUserLiked ? "dislike" : "like"}
+        </button>
+        <p className="likeIcon">{likesCount}</p>
+      </div>
+      <div className="">
+        <button>unfollow</button>
+      </div>
     </div>
   );
 };

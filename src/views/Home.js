@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Post from "../components/Post";
 import AddPost from "../components/AddPost";
-// import { Link } from "react-router-dom";
 
 import "./Home.css";
 
@@ -20,7 +19,6 @@ const Home = (props) => {
   };
 
   const getNextPosts = () => {
-    // console.log("działam");
     axios
       .post("https://akademia108.pl/api/social-app/post/older-then", {
         date: posts[posts.length - 1].created_at,
@@ -57,7 +55,14 @@ const Home = (props) => {
 
       <div className="postList">
         {posts.map((post) => {
-          return <Post post={post} key={post.id} setPosts={setPosts} />;
+          return (
+            <Post
+              post={post}
+              key={post.id}
+              setPosts={setPosts}
+              user={props.user}
+            />
+          );
         })}
       </div>
       <button className="button btn-home" onClick={getNextPosts}>
@@ -68,3 +73,5 @@ const Home = (props) => {
 };
 
 export default Home;
+
+// WĘDRÓWKA PROPSÓW!! PRZEANALIZOWAĆ!!
