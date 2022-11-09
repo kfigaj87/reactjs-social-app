@@ -1,0 +1,13 @@
+.followRecommendations {
+  display: flex;
+  margin: auto;
+}
+
+.followRecommendation {
+  flex-basis: 33.33%;
+}
+
+.followRecommendation img {
+  height: 50px;
+  border-radius: 50%;
+}

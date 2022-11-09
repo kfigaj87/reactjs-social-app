@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import axios from "axios";
 
@@ -43,6 +43,23 @@ const Post = (props) => {
         });
       });
   };
+  const disfollow = (id) => {
+    axios
+      .post("https://akademia108.pl/api/social-app/follows/disfollow", {
+        leader_id: id,
+      })
+      .then(() => {
+        console.log("disfollow");
+        props.getLatestPosts();
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
+  useEffect((props) => {
+    props.getRecommendations();
+  }, []);
 
   // console.log(props.post.likes);
   return (
@@ -88,8 +105,18 @@ const Post = (props) => {
         </button>
         <p className="likeIcon">{likesCount}</p>
       </div>
-      <div className="">
-        <button>unfollow</button>
+      <div className="disfollowRecommendations">
+        {recommendations.map((recommendation) => {
+          return (
+            <div key={recommendation.id} className="disfollowRecommendation">
+              <img src={recommendation.avatar_url} />
+              <h3>{recommendation.username}</h3>
+              <button onClick={() => disfollow(recommendation.id)}>
+                Disfollow
+              </button>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

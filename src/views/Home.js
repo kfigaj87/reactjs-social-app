@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Post from "../components/Post";
 import AddPost from "../components/AddPost";
+import FollowRecommendations from "../components/FollowRecommendations";
 
 import "./Home.css";
 
@@ -52,6 +53,13 @@ const Home = (props) => {
       <h2 className="nav-h">Home</h2>
 
       {props.user && <AddPost user={props.user} getPrevPosts={getPrevPosts} />}
+      {props.user && (
+        <FollowRecommendations
+          user={props.user}
+          posts={posts}
+          getLatestPosts={getLatestPosts}
+        />
+      )}
 
       <div className="postList">
         {posts.map((post) => {
@@ -61,6 +69,8 @@ const Home = (props) => {
               key={post.id}
               setPosts={setPosts}
               user={props.user}
+              posts={posts}
+              getLatestPosts={getLatestPosts}
             />
           );
         })}
