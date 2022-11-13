@@ -1,5 +1,5 @@
 .post {
-  background-color: rgba(232, 236, 215, 0.493);
+  background-color: rgba(213, 213, 213, 0.493);
   width: 50%;
   border: 1px solid;
   border-color: black;
@@ -24,6 +24,15 @@
   justify-content: space-between;
   margin-left: 5px;
   margin-top: 5px;
+  flex-wrap: wrap;
+}
+
+.user-name {
+  text-transform: uppercase;
+}
+
+.avatar {
+  margin-left: 2px;
 }
 
 .content {
@@ -34,13 +43,30 @@
   margin-bottom: 10px;
 }
 
-.user-name {
-  text-transform: uppercase;
-}
-
-.post-delete {
-  display: flex;
-  justify-content: flex-start;
+.btnPostDelete {
   margin-left: 2px;
   margin-bottom: 2px;
+  padding-right: 5x;
+}
+
+.btnLikeDislike {
+  margin-left: 2px;
+  margin-bottom: 2px;
+}
+
+.likeIcon {
+  margin-right: 5px;
+  padding-left: 5px;
+  margin-bottom: 2px;
+}
+
+.btnDisfollowRecommendations {
+  margin-bottom: 2px;
+}
+
+.btnDeleteLikeDislike {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  flex-wrap: wrap;
 }

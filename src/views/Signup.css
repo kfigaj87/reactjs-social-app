@@ -1,9 +1,10 @@
 .signup-form {
   border: 2px solid black;
-  background-color: beige;
+  background-color: rgba(213, 213, 213, 0.493);
   height: auto;
   width: 50%;
   margin-left: 25%;
+
   /* display: flex;
   flex-wrap: wrap;
   justify-content: center; */
@@ -13,4 +14,11 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+}
+
+.signUpArea {
+  margin: 5px;
+}
+.btnSignup {
+  margin: 5px;
 }

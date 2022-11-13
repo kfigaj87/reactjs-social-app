@@ -1,8 +1,12 @@
-import React, { useEffect, useState } from "react";
-
+import React, { useState } from "react";
 import axios from "axios";
-
 import "./Post.css";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import { faHeartBroken } from "@fortawesome/free-solid-svg-icons";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faMinus } from "@fortawesome/free-solid-svg-icons";
 
 const Post = (props) => {
   const [deleteModalDisplay, setdeleteModalDisplay] = useState(false);
@@ -57,11 +61,6 @@ const Post = (props) => {
       });
   };
 
-  useEffect((props) => {
-    props.getRecommendations();
-  }, []);
-
-  // console.log(props.post.likes);
   return (
     <div className="post">
       <div className="avatar_img">
@@ -70,53 +69,63 @@ const Post = (props) => {
         <span className="created_at">{props.post.created_at.slice(0, 10)}</span>
       </div>
       <p className="content">{props.post.content}</p>
-      {props.user && (
-        <div className="post-delete">
-          <button
-            className="btn-post-delete"
-            onClick={() => setdeleteModalDisplay(true)}
-          >
-            Delete post
-          </button>
-        </div>
-      )}
 
       {deleteModalDisplay && (
         <div className="deleteConfirmation">
           <h3>Are you sure you want to delete post?</h3>
-          <button className="btn-yes" onClick={() => deletePost(props.post.id)}>
+          <button
+            className="btnYes button"
+            onClick={() => deletePost(props.post.id)}
+          >
             Yes
           </button>{" "}
           <button
-            className="btn-no"
+            className="btnNo button"
             onClick={() => setdeleteModalDisplay(false)}
           >
             No
           </button>
         </div>
       )}
-      <div className="">
-        <button
-          className="btnLikeDislike"
-          onClick={() => likePost(props.post.id, doesUserLiked)}
-        >
-          {" "}
-          {doesUserLiked ? "dislike" : "like"}
-        </button>
-        <p className="likeIcon">{likesCount}</p>
-      </div>
-      <div className="disfollowRecommendations">
-        {recommendations.map((recommendation) => {
-          return (
-            <div key={recommendation.id} className="disfollowRecommendation">
-              <img src={recommendation.avatar_url} />
-              <h3>{recommendation.username}</h3>
-              <button onClick={() => disfollow(recommendation.id)}>
-                Disfollow
-              </button>
-            </div>
-          );
-        })}
+      <div className="btnDeleteLikeDislike">
+        <div className="disfollowRecommendations">
+          {props.user && props.post.user.username !== props.user?.username && (
+            <button
+              className="button btnDisfollowRecommendations"
+              onClick={() => disfollow(props.post.user.id)}
+            >
+              {" "}
+              <FontAwesomeIcon icon={faMinus} /> {""}
+              Disfollow
+            </button>
+          )}
+        </div>
+        {props.user && (
+          <div className="postDelete">
+            <button
+              className="button btnPostDelete"
+              onClick={() => setdeleteModalDisplay(true)}
+            >
+              {" "}
+              <FontAwesomeIcon icon={faTrash} /> {""}
+              Delete post
+            </button>
+          </div>
+        )}
+        {props.user && (
+          <button
+            className="button btnLikeDislike "
+            onClick={() => likePost(props.post.id, doesUserLiked)}
+          >
+            {" "}
+            {doesUserLiked ? (
+              <FontAwesomeIcon icon={faHeartBroken} />
+            ) : (
+              <FontAwesomeIcon icon={faHeart} />
+            )}
+          </button>
+        )}
+        {props.user && <p className="likeIcon">{likesCount}</p>}
       </div>
     </div>
   );

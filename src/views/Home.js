@@ -3,8 +3,9 @@ import axios from "axios";
 import Post from "../components/Post";
 import AddPost from "../components/AddPost";
 import FollowRecommendations from "../components/FollowRecommendations";
-
 import "./Home.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 
 const Home = (props) => {
   const [posts, setPosts] = useState([]);
@@ -54,11 +55,7 @@ const Home = (props) => {
 
       {props.user && <AddPost user={props.user} getPrevPosts={getPrevPosts} />}
       {props.user && (
-        <FollowRecommendations
-          user={props.user}
-          posts={posts}
-          getLatestPosts={getLatestPosts}
-        />
+        <FollowRecommendations posts={posts} getLatestPosts={getLatestPosts} />
       )}
 
       <div className="postList">
@@ -75,7 +72,8 @@ const Home = (props) => {
           );
         })}
       </div>
-      <button className="button btn-home" onClick={getNextPosts}>
+      <button className="button btnHome" onClick={getNextPosts}>
+        <FontAwesomeIcon icon={faSpinner} /> {""}
         Load more
       </button>
     </div>
@@ -83,5 +81,3 @@ const Home = (props) => {
 };
 
 export default Home;
-
-// WĘDRÓWKA PROPSÓW!! PRZEANALIZOWAĆ!!

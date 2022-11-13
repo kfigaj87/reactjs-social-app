@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./Login.css";
 import axios from "axios";
 import { Navigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faKey } from "@fortawesome/free-solid-svg-icons";
 
 const Login = (props) => {
   const [formData, setFromData] = useState({
@@ -61,10 +63,11 @@ const Login = (props) => {
     <div className="login">
       {props.user && <Navigate to="/" />}
       <h2 className="nav-h">Login</h2>
-      <div className="form-log">
+      <div className="formLog">
         <form onSubmit={handleSubmit}>
           <label htmlFor="username">Username </label>
           <input
+            className="inputArea"
             type="text"
             name="username"
             placeholder="username"
@@ -73,13 +76,16 @@ const Login = (props) => {
           />
           <label htmlFor="password"> Password </label>
           <input
+            className="inputArea"
             type="password"
             name="password"
             placeholder="password"
             onChange={handleInputChange}
             value={formData.password}
           />
-          <button className="button btn-home">Login</button>
+          <button className="button btnHome">
+            <FontAwesomeIcon icon={faKey} /> {""} Login
+          </button>
         </form>
       </div>
     </div>

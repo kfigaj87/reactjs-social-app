@@ -5,9 +5,16 @@
 
 .followRecommendation {
   flex-basis: 33.33%;
+  text-decoration: underline;
+  text-transform: uppercase;
 }
 
 .followRecommendation img {
   height: 50px;
   border-radius: 50%;
+  border: 2px solid black;
+}
+
+.btnFollow {
+  margin-bottom: 5px;
 }

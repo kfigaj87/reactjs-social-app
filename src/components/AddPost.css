@@ -1,8 +1,16 @@
 .addpost {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
 }
 
-.post-content {
+.postContent {
   width: 100%;
+  border: 1px solid black;
+  background-color: rgba(232, 236, 215, 0.493);
+}
+
+.btnAddPost {
+  margin-bottom: 5px;
+  margin-top: 5px;
 }

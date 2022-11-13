@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import "./Signup.css";
 import axios from "axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 const Signup = (props) => {
   const [formData, setFormData] = useState({
@@ -89,7 +91,7 @@ const Signup = (props) => {
         };
       });
     }
-    //password
+
     if (formData.password.trim().length < 6) {
       validatationErrors.password = true;
       setErrors((prevErrors) => {
@@ -126,7 +128,7 @@ const Signup = (props) => {
         };
       });
     }
-    //repeatPassword
+
     if (formData.repeatPassword.trim() !== formData.repeatPassword.trim()) {
       validatationErrors.repeatPassword = true;
       setErrors((prevErrors) => {
@@ -198,40 +200,47 @@ const Signup = (props) => {
         <form className="signup-form-form" onSubmit={handleSubmit}>
           {errors.username && <span>{errors.username}</span>}
           <input
+            className="inputArea signUpArea"
             type="text"
             name="username"
             placeholder="User name"
             onChange={handleInputChange}
             value={formData.username}
           ></input>
-          {/* <br></br> */}
+
           {errors.email && <span>{errors.email}</span>}
           <input
+            className="inputArea signUpArea"
             type="email"
             name="email"
             placeholder="Email"
             onChange={handleInputChange}
             value={formData.email}
           ></input>
-          {/* <br></br> */}
+
           {errors.password && <span>{errors.password}</span>}
           <input
+            className="inputArea signUpArea"
             type="password"
             name="password"
             placeholder="Password"
             onChange={handleInputChange}
             value={formData.password}
           ></input>
-          {/* <br></br> */}
+
           {errors.repeatPassword && <span>{errors.repeatPassword}</span>}
           <input
+            className="inputArea signUpArea"
             type="password"
             name="repeatPassword"
             placeholder="Repeat password"
             onChange={handleInputChange}
             value={formData.repeatPassword}
           ></input>
-          <button className="btn-signup">Sign Up</button>
+          <button className="button btnSignup">
+            {" "}
+            <FontAwesomeIcon icon={faUser} /> {""}Sign Up
+          </button>
         </form>
       </div>
     </div>

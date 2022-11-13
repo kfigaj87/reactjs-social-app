@@ -3,6 +3,9 @@ import "./FollowRecommendations.css";
 import axios from "axios";
 import Post from "./Post";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+
 const FollowRecommendations = (props) => {
   const [recommendations, setRecommendations] = useState([]);
 
@@ -20,8 +23,6 @@ const FollowRecommendations = (props) => {
   useEffect(() => {
     getRecommendations();
   }, [props.posts]);
-
-  //   console.log(props.user);
 
   const follow = (id) => {
     axios
@@ -43,14 +44,17 @@ const FollowRecommendations = (props) => {
           <div key={recommendation.id} className="followRecommendation">
             <img src={recommendation.avatar_url} />
             <h3>{recommendation.username}</h3>
-            <button onClick={() => follow(recommendation.id)}>Follow</button>
+            <button
+              className="btnFollow button"
+              onClick={() => follow(recommendation.id)}
+            >
+              {" "}
+              <FontAwesomeIcon icon={faPlus} /> {""}
+              Follow
+            </button>
           </div>
         );
       })}
-      <Post
-        getRecommendations={getRecommendations}
-        recommendations={recommendations}
-      />
     </div>
   );
 };

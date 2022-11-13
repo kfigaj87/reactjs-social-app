@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "./AddPost.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faComment } from "@fortawesome/free-solid-svg-icons";
 
 const AddPost = (props) => {
   const [postContent, setPostContent] = useState("");
@@ -31,7 +33,7 @@ const AddPost = (props) => {
     <div className="addpost">
       <form onSubmit={addPost}>
         <textarea
-          className="post-content"
+          className="postContent"
           type="textarea"
           name="textarea"
           value={postContent}
@@ -40,7 +42,11 @@ const AddPost = (props) => {
             setPostContent(e.target.value);
           }}
         ></textarea>
-        <button className="btn-addPost">Add Post</button>
+        <button className="btnAddPost button">
+          {" "}
+          <FontAwesomeIcon icon={faComment} /> {""}
+          Add Post
+        </button>
       </form>
     </div>
   );
