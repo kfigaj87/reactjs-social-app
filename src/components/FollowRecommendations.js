@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./FollowRecommendations.css";
 import axios from "axios";
-import Post from "./Post";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
@@ -42,7 +41,7 @@ const FollowRecommendations = (props) => {
       {recommendations.map((recommendation) => {
         return (
           <div key={recommendation.id} className="followRecommendation">
-            <img src={recommendation.avatar_url} />
+            <img src={recommendation.avatar_url} alt="avatar" />
             <h3>{recommendation.username}</h3>
             <button
               className="btnFollow button"

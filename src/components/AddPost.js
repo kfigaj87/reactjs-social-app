@@ -38,6 +38,8 @@ const AddPost = (props) => {
           name="textarea"
           value={postContent}
           placeholder="..."
+          cols="30"
+          rows="5"
           onChange={(e) => {
             setPostContent(e.target.value);
           }}

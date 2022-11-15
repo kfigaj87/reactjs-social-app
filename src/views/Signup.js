@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./Signup.css";
 import axios from "axios";
+import { Navigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 
@@ -18,7 +19,7 @@ const Signup = (props) => {
     repeatPassword: "",
   });
   const [signUpMessage, setSignUpMessage] = useState("");
-  const [signUpDone, setSignUpDone] = useState(false);
+  // const [signUpDone, setSignUpDone] = useState(false);
 
   const handleInputChange = (e) => {
     const target = e.target;
@@ -37,7 +38,6 @@ const Signup = (props) => {
       repeatPassword: false,
     };
 
-    // username
     if (formData.username.trim().length < 4) {
       validatationErrors.username = true;
       setErrors((prevErrors) => {
@@ -63,7 +63,7 @@ const Signup = (props) => {
         };
       });
     }
-    // email
+
     if (formData.email.trim().length < 0) {
       validatationErrors.email = true;
       setErrors((prevErrors) => {
@@ -129,7 +129,7 @@ const Signup = (props) => {
       });
     }
 
-    if (formData.repeatPassword.trim() !== formData.repeatPassword.trim()) {
+    if (formData.repeatPassword.trim() !== formData.password.trim()) {
       validatationErrors.repeatPassword = true;
       setErrors((prevErrors) => {
         return {
@@ -173,7 +173,8 @@ const Signup = (props) => {
         let reqData = req.data;
         if (reqData.signedup) {
           setSignUpMessage("Account created");
-          setSignUpDone(true);
+          // setSignUpDone(true);
+
           setFormData({
             username: "",
             email: "",
@@ -195,7 +196,8 @@ const Signup = (props) => {
 
   return (
     <div className="signup">
-      <h2 className="nav-h">SignUp</h2>
+      {props.user && <Navigate to="/" />}
+      <h2 className="nav-h">Sign Up</h2>
       <div className="signup-form">
         <form className="signup-form-form" onSubmit={handleSubmit}>
           {errors.username && <span>{errors.username}</span>}
@@ -242,6 +244,7 @@ const Signup = (props) => {
             <FontAwesomeIcon icon={faUser} /> {""}Sign Up
           </button>
         </form>
+        {signUpMessage && <h2 className="nav-h">{signUpMessage}</h2>}
       </div>
     </div>
   );

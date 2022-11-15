@@ -30,7 +30,6 @@ const Login = (props) => {
       password: formData.password,
     };
 
-    // console.log("działam");
     axios
       .post(
         "http://akademia108.pl/api/social-app/user/login",
@@ -50,6 +49,7 @@ const Login = (props) => {
           setLoginMessage("");
           props.setUser(loginRes);
           localStorage.setItem("user", JSON.stringify(loginRes));
+
           console.log(loginRes);
         }
       })
@@ -63,6 +63,7 @@ const Login = (props) => {
     <div className="login">
       {props.user && <Navigate to="/" />}
       <h2 className="nav-h">Login</h2>
+
       <div className="formLog">
         <form onSubmit={handleSubmit}>
           <label htmlFor="username">Username </label>
@@ -75,6 +76,7 @@ const Login = (props) => {
             value={formData.username}
           />
           <label htmlFor="password"> Password </label>
+
           <input
             className="inputArea"
             type="password"
@@ -87,6 +89,7 @@ const Login = (props) => {
             <FontAwesomeIcon icon={faKey} /> {""} Login
           </button>
         </form>
+        {loginMessage && <h2 className="nav-h">{loginMessage}</h2>}
       </div>
     </div>
   );
